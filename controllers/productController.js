@@ -1,6 +1,5 @@
 const Product = require("../models/product")
 const { validateProduct } = require("../validator")
-const { validateProductUpdate } = require("../validator")
 
 exports.createProduct = async(req, res)=>{
     try {
@@ -18,6 +17,8 @@ exports.createProduct = async(req, res)=>{
         });
 
         const productItem = await product.save()
+
+        res.setHeader("Content-Type", "application/json")
         res.json(productItem)
     } catch (error) {
         res.json({message: error.message})
@@ -32,27 +33,3 @@ exports.getProduct = async(req,res)=>{
         console.log(error);
     }
 }
-
-exports.updateProduct = async(req, res)=>{
-    const{ error } = validateProductUpdate(req.body);
-    if(error){
-        return res.json(error.details[0].message);
-    }
-    try {
-        const produce = await Product.findById(req.params.id)
-        if (!produce) {
-        res.json("Student not found")
-        }
-        produce.name = req.body.name,
-        produce.img = req.file.path,
-        produce.price = req.body.price,
-        produce.featured = req.body.featured,
-        produce.topSelling = req.body.topSelling,
-
-        produce = produce.save()
-        res.json(produce)
-      }catch(error) {
-          console.log(error)
-    }
-      
-  }

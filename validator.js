@@ -16,16 +16,8 @@ const productSchema = Joi.object({
 
 });
 
-const productUpdateSchema =  Joi.object({
-    name: Joi.string().required(),
-    price: Joi.number().required(),
-    img: Joi.string(),
-    featured: Joi.boolean(),
-    topSelling: Joi.boolean(),
-});
-
 exports.validateCategory = validator(categorySchema);
 exports.validateProduct = validator(productSchema);
-exports.validateProductUpdate = validator(productUpdateSchema);
+
 
 
