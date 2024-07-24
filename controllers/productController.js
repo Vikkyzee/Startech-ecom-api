@@ -2,11 +2,11 @@ const Product = require("../models/product")
 const { validateProduct } = require("../validator")
 
 exports.createProduct = async(req, res)=>{
+    const { error } = validateProduct(req.body)
+    if (error) {
+        res.json(error.details[0].message)
+    }
     try {
-        const { error } = validateProduct(req.body)
-        if (error) {
-            res.json(error.details[0].message)
-        }
         const product = new Product({
             category: req.body.category,
             name: req.body.name,
