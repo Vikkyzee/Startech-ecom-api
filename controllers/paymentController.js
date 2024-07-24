@@ -22,7 +22,7 @@ exports.initiatePayment = async (req, res) => {
             tx_ref: orderId,
             amount,
             currency,
-            redirect_url: "http://localhost:5173/thankyou",
+            redirect_url: "https://startech-ecom-api-elc7.onrender.com/thankyou",
             customer: {
                 email: user.email,
                 name: `${user.firstName} ${user.lastName}`,
